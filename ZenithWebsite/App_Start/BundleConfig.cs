@@ -20,13 +20,14 @@ namespace ZenithWebsite
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
+                 "~/Scripts/moment.js",
                  "~/Scripts/bootstrap.js",
-                 "~/Scripts/bootstrap-datepicker3.js",    // ** NEW for Bootstrap Datepicker
+                 "~/Scripts/bootstrap-datetimepicker.js",    // ** NEW for Bootstrap Datepicker
                  "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                   "~/Content/bootstrap.css",
-                  "~/Content/bootstrap-datepicker3.css",  // ** NEW for Bootstrap Datepicker
+                  "~/Content/bootstrap-datetimepicker.css",  // ** NEW for Bootstrap Datepicker
                   "~/Content/site.css"));
         }
     }
