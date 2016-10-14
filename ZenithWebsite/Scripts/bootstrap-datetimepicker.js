@@ -1,4 +1,4 @@
-/*! version : 4.15.35
+/*! version : 4.14.30
  =========================================================
  bootstrap-datetimejs
  https://github.com/Eonasdan/bootstrap-datetimepicker
@@ -285,16 +285,16 @@
             getToolbar = function () {
                 var row = [];
                 if (options.showTodayButton) {
-                    row.push($('<td>').append($('<a>').attr({'data-action':'today', 'title': options.tooltips.today}).append($('<span>').addClass(options.icons.today))));
+                    row.push($('<td>').append($('<a>').attr({'data-action':'today', 'title':'Go to today'}).append($('<span>').addClass(options.icons.today))));
                 }
                 if (!options.sideBySide && hasDate() && hasTime()) {
                     row.push($('<td>').append($('<a>').attr({'data-action':'togglePicker', 'title':'Select Time'}).append($('<span>').addClass(options.icons.time))));
                 }
                 if (options.showClear) {
-                    row.push($('<td>').append($('<a>').attr({'data-action':'clear', 'title': options.tooltips.clear}).append($('<span>').addClass(options.icons.clear))));
+                    row.push($('<td>').append($('<a>').attr({'data-action':'clear', 'title':'Clear selection'}).append($('<span>').addClass(options.icons.clear))));
                 }
                 if (options.showClose) {
-                    row.push($('<td>').append($('<a>').attr({'data-action':'close', 'title': options.tooltips.close}).append($('<span>').addClass(options.icons.close))));
+                    row.push($('<td>').append($('<a>').attr({'data-action':'close', 'title':'Close the picker'}).append($('<span>').addClass(options.icons.close))));
                 }
                 return $('<table>').addClass('table-condensed').append($('<tbody>').append($('<tr>').append(row)));
             },
@@ -316,20 +316,14 @@
                 if (isEnabled('s') && !use24Hours) {
                     template.addClass('wider');
                 }
-
                 if (options.sideBySide && hasDate() && hasTime()) {
                     template.addClass('timepicker-sbs');
-                    if (options.toolbarPlacement === 'top') {
-                        template.append(toolbar);
-                    }
                     template.append(
                         $('<div>').addClass('row')
-                            .append(dateView.addClass('col-md-6'))
-                            .append(timeView.addClass('col-md-6'))
+                            .append(dateView.addClass('col-sm-6'))
+                            .append(timeView.addClass('col-sm-6'))
                     );
-                    if (options.toolbarPlacement === 'bottom') {
-                        template.append(toolbar);
-                    }
+                    template.append(toolbar);
                     return template;
                 }
 
@@ -558,9 +552,9 @@
                     monthsViewHeader = monthsView.find('th'),
                     months = monthsView.find('tbody').find('span');
 
-                monthsViewHeader.eq(0).find('span').attr('title', options.tooltips.prevYear);
-                monthsViewHeader.eq(1).attr('title', options.tooltips.selectYear);
-                monthsViewHeader.eq(2).find('span').attr('title', options.tooltips.nextYear);
+                monthsViewHeader.eq(0).find('span').attr('title', 'Previous Year');
+                monthsViewHeader.eq(1).attr('title', 'Select Year');
+                monthsViewHeader.eq(2).find('span').attr('title', 'Next Year');
 
                 monthsView.find('.disabled').removeClass('disabled');
 
@@ -593,9 +587,9 @@
                     endYear = viewDate.clone().add(6, 'y'),
                     html = '';
 
-                yearsViewHeader.eq(0).find('span').attr('title', options.tooltips.nextDecade);
-                yearsViewHeader.eq(1).attr('title', options.tooltips.selectDecade);
-                yearsViewHeader.eq(2).find('span').attr('title', options.tooltips.prevDecade);
+                yearsViewHeader.eq(0).find('span').attr('title', 'Previous Decade');
+                yearsViewHeader.eq(1).attr('title', 'Select Decade');
+                yearsViewHeader.eq(2).find('span').attr('title', 'Next Decade');
 
                 yearsView.find('.disabled').removeClass('disabled');
 
@@ -624,8 +618,8 @@
                     endDecade = startDecade.clone().add(100, 'y'),
                     html = '';
 
-                decadesViewHeader.eq(0).find('span').attr('title', options.tooltips.prevCentury);
-                decadesViewHeader.eq(2).find('span').attr('title', options.tooltips.nextCentury);
+                decadesViewHeader.eq(0).find('span').attr('title', 'Previous Century');
+                decadesViewHeader.eq(2).find('span').attr('title', 'Next Century');
 
                 decadesView.find('.disabled').removeClass('disabled');
 
@@ -662,9 +656,9 @@
                     return;
                 }
 
-                daysViewHeader.eq(0).find('span').attr('title', options.tooltips.prevMonth);
-                daysViewHeader.eq(1).attr('title', options.tooltips.selectMonth);
-                daysViewHeader.eq(2).find('span').attr('title', options.tooltips.nextMonth);
+                daysViewHeader.eq(0).find('span').attr('title', 'Previous Month');
+                daysViewHeader.eq(1).attr('title', 'Select Month');
+                daysViewHeader.eq(2).find('span').attr('title', 'Next Month');
 
                 daysView.find('.disabled').removeClass('disabled');
                 daysViewHeader.eq(1).text(viewDate.format(options.dayViewHeaderFormat));
@@ -886,9 +880,6 @@
                     type: 'dp.hide',
                     date: date.clone()
                 });
-
-                input.blur();
-
                 return picker;
             },
 
@@ -1196,14 +1187,10 @@
             },
 
             parseInputDate = function (inputDate) {
-                if (options.parseInputDate === undefined) {
-                    if (moment.isMoment(inputDate) || inputDate instanceof Date) {
-                        inputDate = moment(inputDate);
-                    } else {
-                        inputDate = moment(inputDate, parseFormats, options.useStrict);
-                    }
+                if (moment.isMoment(inputDate) || inputDate instanceof Date) {
+                    inputDate = moment(inputDate);
                 } else {
-                    inputDate = options.parseInputDate(inputDate);
+                    inputDate = moment(inputDate, parseFormats, options.useStrict);
                 }
                 inputDate.locale(options.locale);
                 return inputDate;
@@ -1293,7 +1280,7 @@
             detachDatePickerElementEvents = function () {
                 input.off({
                     'change': change,
-                    'blur': blur,
+                    'blur': hide,
                     'keydown': keydown,
                     'keyup': keyup,
                     'focus': options.allowInputToggle ? hide : ''
@@ -1639,7 +1626,7 @@
                 setValue(options.maxDate);
             }
             if (viewDate.isAfter(parsedDate)) {
-                viewDate = parsedDate.clone().subtract(options.stepping, 'm');
+                viewDate = parsedDate.clone();
             }
             update();
             return picker;
@@ -1675,7 +1662,7 @@
                 setValue(options.minDate);
             }
             if (viewDate.isBefore(parsedDate)) {
-                viewDate = parsedDate.clone().add(options.stepping, 'm');
+                viewDate = parsedDate.clone();
             }
             update();
             return picker;
@@ -1800,22 +1787,6 @@
                 throw new TypeError('icons() expects parameter to be an Object');
             }
             $.extend(options.icons, icons);
-            if (widget) {
-                hide();
-                show();
-            }
-            return picker;
-        };
-
-        picker.tooltips = function (tooltips) {
-            if (arguments.length === 0) {
-                return $.extend({}, options.tooltips);
-            }
-
-            if (!(tooltips instanceof Object)) {
-                throw new TypeError('tooltips() expects parameter to be an Object');
-            }
-            $.extend(options.tooltips, tooltips);
             if (widget) {
                 hide();
                 show();
@@ -2101,20 +2072,6 @@
             return picker;
         };
 
-        picker.parseInputDate = function (parseInputDate) {
-            if (arguments.length === 0) {
-                return options.parseInputDate;
-            }
-
-            if (typeof parseInputDate !== 'function') {
-                throw new TypeError('parseInputDate() sholud be as function');
-            }
-
-            options.parseInputDate = parseInputDate;
-
-            return picker;
-        };
-
         picker.disabledTimeIntervals = function (disabledTimeIntervals) {
             ///<signature helpKeyword="$.fn.datetimepicker.disabledTimeIntervals">
             ///<summary>Returns an array with the currently set disabled dates on the component.</summary>
@@ -2261,7 +2218,7 @@
         if (element.hasClass('input-group')) {
             // in case there is more then one 'input-group-addon' Issue #48
             if (element.find('.datepickerbutton').size() === 0) {
-                component = element.find('.input-group-addon');
+                component = element.find('[class^="input-group-"]');
             } else {
                 component = element.find('.datepickerbutton');
             }
@@ -2335,22 +2292,6 @@
             clear: 'glyphicon glyphicon-trash',
             close: 'glyphicon glyphicon-remove'
         },
-        tooltips: {
-            today: 'Go to today',
-            clear: 'Clear selection',
-            close: 'Close the picker',
-            selectMonth: 'Select Month',
-            prevMonth: 'Previous Month',
-            nextMonth: 'Next Month',
-            selectYear: 'Select Year',
-            prevYear: 'Previous Year',
-            nextYear: 'Next Year',
-            selectDecade: 'Select Decade',
-            prevDecade: 'Previous Decade',
-            nextDecade: 'Next Decade',
-            prevCentury: 'Previous Century',
-            nextCentury: 'Next Century'
-        },
         useStrict: false,
         sideBySide: false,
         daysOfWeekDisabled: false,
@@ -2380,7 +2321,7 @@
                 if (widget.find('.datepicker').is(':visible')) {
                     this.date(d.clone().subtract(7, 'd'));
                 } else {
-                    this.date(d.clone().add(this.stepping(), 'm'));
+                    this.date(d.clone().add(1, 'm'));
                 }
             },
             down: function (widget) {
@@ -2392,7 +2333,7 @@
                 if (widget.find('.datepicker').is(':visible')) {
                     this.date(d.clone().add(7, 'd'));
                 } else {
-                    this.date(d.clone().subtract(this.stepping(), 'm'));
+                    this.date(d.clone().subtract(1, 'm'));
                 }
             },
             'control up': function (widget) {
