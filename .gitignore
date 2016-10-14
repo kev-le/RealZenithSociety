@@ -52,6 +52,7 @@ obj/
 
 TestResults/
 
+.vs/
 ###################
 
 # Web publish log #
