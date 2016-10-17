@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -17,8 +18,20 @@ namespace ZenithWebsite.Controllers
 
         public ActionResult Test()
         {
-            var events = db.Events.Include(e => e.Activity);
-            return View(events.ToList());
+            var rawEvents = db.Events.Include(e => e.Activity).ToList();
+            var events = new Dictionary<String, List<Event>>();
+            foreach (var e in rawEvents)
+            {
+                if (events.ContainsKey(e.DateFrom.ToLongDateString()))
+                {
+                    events[e.DateFrom.ToLongDateString()].Add(e);
+                } else
+                {
+                    events[e.DateFrom.ToLongDateString()] = new List<Event>();
+                    events[e.DateFrom.ToLongDateString()].Add(e);
+                }
+            }
+            return View(events);
         }
 
         // GET: Events
