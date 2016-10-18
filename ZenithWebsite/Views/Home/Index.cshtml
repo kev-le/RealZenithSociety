@@ -5,22 +5,19 @@
 
 <div class="jumbotron">
     <h1>Zenith Society Upcoming Events</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
 </div>
-<div class="container">
-    @foreach (var e in Model)
-    {
-        <table class="table">
+@foreach (var e in Model)
+{
+    <table class="table">
+        <tr>
+            <th colspan="2" class="success" style="text-align:center">@e.Key</th>
+        </tr>
+        @foreach (var i in e.Value)
+        {
             <tr>
-                <th colspan="2" class="success" style="text-align:center">@e.Key</th>
+                <td width="25%">@i.DateFrom.ToShortTimeString() - @i.DateTo.ToShortTimeString()</td>
+                <td>@i.Activity.Description</td>
             </tr>
-            @foreach (var i in e.Value)
-            {
-                <tr>
-                    <td width="25%">@i.DateFrom.ToShortTimeString() - @i.DateTo.ToShortTimeString()</td>
-                    <td>@i.Activity.Description</td>
-                </tr>
-            }
-        </table>
-    }
-</div>
+        }
+    </table>
+}

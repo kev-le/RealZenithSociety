@@ -14,6 +14,7 @@ namespace ZenithWebsite.Controllers
         private ZenithContext db = new ZenithContext();
         public ActionResult Index()
         {
+
             var rawEvents = db.Events.Include(e => e.Activity);
             rawEvents  = rawEvents.OrderBy(c => c.DateFrom);
             var events = new Dictionary<String, List<Event>>();
@@ -33,18 +34,29 @@ namespace ZenithWebsite.Controllers
             //return View();
         }
 
-        public ActionResult About()
+        public ActionResult Homepage()
         {
-            ViewBag.Message = "Your application description page.";
+            var monday = DateTime.Today.AddDays(((int)(DateTime.Today.DayOfWeek) * -1) + 1);
+            var sunday = DateTime.Today.AddDays(((int)(DateTime.Today.DayOfWeek) * -1) + 8);
 
-            return View();
-        }
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            var rawEvents = db.Events.Include(e => e.Activity);
+            rawEvents = rawEvents.Where(e => e.DateFrom >= monday && e.DateTo <= sunday)
+                                 .OrderBy(c => c.DateFrom);
+            var events = new Dictionary<String, List<Event>>();
+            foreach (var e in rawEvents)
+            {
+                if (events.ContainsKey(e.DateFrom.ToLongDateString()))
+                {
+                    events[e.DateFrom.ToLongDateString()].Add(e);
+                }
+                else
+                {
+                    events[e.DateFrom.ToLongDateString()] = new List<Event>();
+                    events[e.DateFrom.ToLongDateString()].Add(e);
+                }
+            }
+            return View(events);
         }
     }
 }

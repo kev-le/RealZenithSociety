@@ -20,8 +20,6 @@ namespace ZenithDataLib.Models
 
         public String UserName { get; set; }
 
-        
-
         public DateTime CreationDate { get; set; }
 
         [Display(Name = "Is Active")]
