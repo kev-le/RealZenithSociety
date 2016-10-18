@@ -12,6 +12,7 @@ using ZenithWebsite.Models;
 
 namespace ZenithWebsite.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class EventsController : Controller
     {
         private ZenithContext db = new ZenithContext();
@@ -62,7 +63,6 @@ namespace ZenithWebsite.Controllers
         }
 
         // GET: Events/Create
-        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             ViewBag.ActivityId = new SelectList(db.Activities, "ActivityId", "Description");
@@ -74,11 +74,12 @@ namespace ZenithWebsite.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
         public ActionResult Create([Bind(Include = "EventId,DateFrom,DateTo,UserName,CreationDate,IsActive,ActivityId")] Event @event)
         {
             if (ModelState.IsValid)
             {
+                @event.CreationDate = DateTime.Now;
+                @event.UserName = User.Identity.Name;
                 db.Events.Add(@event);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -89,7 +90,6 @@ namespace ZenithWebsite.Controllers
         }
 
         // GET: Events/Edit/5
-        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -110,7 +110,6 @@ namespace ZenithWebsite.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
         public ActionResult Edit([Bind(Include = "EventId,DateFrom,DateTo,UserName,CreationDate,IsActive,ActivityId")] Event @event)
         {
             if (ModelState.IsValid)
@@ -124,7 +123,6 @@ namespace ZenithWebsite.Controllers
         }
 
         // GET: Events/Delete/5
-        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -142,7 +140,6 @@ namespace ZenithWebsite.Controllers
         // POST: Events/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirmed(int id)
         {
             Event @event = db.Events.Find(id);

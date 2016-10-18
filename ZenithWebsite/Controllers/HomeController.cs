@@ -14,7 +14,8 @@ namespace ZenithWebsite.Controllers
         private ZenithContext db = new ZenithContext();
         public ActionResult Index()
         {
-            var rawEvents = db.Events.Include(e => e.Activity).ToList();
+            var rawEvents = db.Events.Include(e => e.Activity);
+            rawEvents  = rawEvents.OrderBy(c => c.DateFrom);
             var events = new Dictionary<String, List<Event>>();
             foreach (var e in rawEvents)
             {
