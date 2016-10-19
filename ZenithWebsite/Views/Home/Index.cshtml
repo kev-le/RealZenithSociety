@@ -4,20 +4,23 @@
 }
 
 <div class="jumbotron">
-    <h1>Zenith Society Upcoming Events</h1>
+    <h1>Events for the week of @ViewBag.WeekOf</h1>
 </div>
-@foreach (var e in Model)
-{
-    <table class="table">
-        <tr>
-            <th colspan="2" class="success" style="text-align:center">@e.Key</th>
-        </tr>
-        @foreach (var i in e.Value)
-        {
+<div class="container">
+    @foreach (var e in Model)
+    {
+        <table class="table">
             <tr>
-                <td width="25%">@i.DateFrom.ToShortTimeString() - @i.DateTo.ToShortTimeString()</td>
-                <td>@i.Activity.Description</td>
+                <th colspan="2" class="success" style="text-align:center">@e.Key</th>
             </tr>
-        }
-    </table>
-}
+            @foreach (var i in e.Value)
+            {
+                <tr>
+                    <td width="25%">@i.DateFrom.ToShortTimeString() - @i.DateTo.ToShortTimeString()</td>
+                    <td>@i.Activity.Description</td>
+                </tr>
+            }
+        </table>
+    }
+</div>
+

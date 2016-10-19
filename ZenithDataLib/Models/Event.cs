@@ -26,6 +26,7 @@ namespace ZenithDataLib.Models
         public bool IsActive { get; set; }
 
         public int ActivityId { get; set; }
+        [Display(Name = "Activity Description")]
         public Activity Activity { get; set; }
     }
 }
