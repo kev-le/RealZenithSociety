@@ -15,6 +15,7 @@ namespace ZenithDataLib.Models
         [MaxLength(75)]
         public String Description { get; set; }
 
+        [Display(Name = "Creation Date")]
         public DateTime CreationDate { get; set; }
 
         public List<Event> Events { get; set; }
