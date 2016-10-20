@@ -89,6 +89,7 @@
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\Activity.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ZenithContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

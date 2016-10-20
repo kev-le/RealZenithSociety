@@ -6,21 +6,19 @@
 <div class="jumbotron">
     <h1>Events for the week of @ViewBag.WeekOf</h1>
 </div>
-<div class="container">
-    @foreach (var e in Model)
-    {
-        <table class="table">
+@foreach (var e in Model)
+{
+    <table class="table">
+        <tr>
+            <th colspan="2" class="success" style="text-align:center">@e.Key</th>
+        </tr>
+        @foreach (var i in e.Value)
+        {
             <tr>
-                <th colspan="2" class="success" style="text-align:center">@e.Key</th>
+                <td width="25%">@i.DateFrom.ToShortTimeString() - @i.DateTo.ToShortTimeString()</td>
+                <td>@i.Activity.Description</td>
             </tr>
-            @foreach (var i in e.Value)
-            {
-                <tr>
-                    <td width="25%">@i.DateFrom.ToShortTimeString() - @i.DateTo.ToShortTimeString()</td>
-                    <td>@i.Activity.Description</td>
-                </tr>
-            }
-        </table>
-    }
-</div>
+        }
+    </table>
+}
 

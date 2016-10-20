@@ -13,9 +13,11 @@ namespace ZenithDataLib.Models
         public int EventId { get; set; }
 
         [Display(Name = "Date From")]
+        [Required(ErrorMessage = "The date and time of event starting is required.")]
         public DateTime DateFrom { get; set; }
 
         [Display(Name = "Date To")]
+        [Required(ErrorMessage = "The date and time of event ending is required.")]
         public DateTime DateTo { get; set; }
 
         public String UserName { get; set; }

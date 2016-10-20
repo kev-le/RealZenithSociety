@@ -48,11 +48,11 @@ namespace ZenithWebsite.Models
 
     public class LoginViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Please enter a user name.")]
         [Display(Name = "User Name")]
         public string UserName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please enter a password.")]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
@@ -63,29 +63,29 @@ namespace ZenithWebsite.Models
 
     public class RegisterViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Please enter your last name.")]
         [DataType(DataType.Text)]
         [Display(Name = "Last Name")]
         [RegularExpression("([a-zA-Z .&'-]+)", ErrorMessage = "Enter alphabetic characters for the user name.")]
         public string LastName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please enter your first name.")]
         [DataType(DataType.Text)]
         [Display(Name = "First Name")]
         [RegularExpression("([a-zA-Z .&'-]+)", ErrorMessage = "Enter alphabetic characters for the user name.")]
         public string FirstName { get; set; }
 
-        [Required(ErrorMessage = "A user name is required.")]
+        [Required(ErrorMessage = "An account user name is required.")]
         [Display(Name = "User Name")]
         [RegularExpression("([a-zA-Z0-9 .&'-]+)", ErrorMessage = "Enter alphabetic and numeric characters for the user name.")]
         public string UserName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please enter an email address.")]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please enter a password.")]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]

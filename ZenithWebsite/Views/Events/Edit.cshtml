@@ -19,7 +19,7 @@
             @Html.LabelFor(model => model.DateFrom, "Date From", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10" style="position:relative">
                 @Html.TextBoxFor(model => model.DateFrom, new { @class = "form-control datetimepicker", placeholder = "Enter to date" })
-                @Html.ValidationMessageFor(model => model.DateFrom)
+                @Html.ValidationMessageFor(model => model.DateFrom, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -27,7 +27,7 @@
             @Html.LabelFor(model => model.DateTo, "Date To", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10" style="position:relative">
                 @Html.TextBoxFor(model => model.DateTo, new { @class = "form-control datetimepicker", placeholder = "Enter to date" })
-                @Html.ValidationMessageFor(model => model.DateTo)
+                @Html.ValidationMessageFor(model => model.DateTo, "", new { @class = "text-danger" })
             </div>
         </div>
 

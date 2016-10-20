@@ -8,7 +8,7 @@ namespace ZenithWebsite.Migrations.Zenith
     using System.Linq;
     using ZenithDataLib.Models;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<ZenithWebsite.Models.ZenithContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<ZenithContext>
     {
         public Configuration()
         {
@@ -16,7 +16,7 @@ namespace ZenithWebsite.Migrations.Zenith
             MigrationsDirectory = @"Migrations\Zenith";
         }
 
-        protected override void Seed(ZenithWebsite.Models.ZenithContext context)
+        protected override void Seed(ZenithContext context)
         {
             context.Activities.AddOrUpdate(a => a.ActivityId, getActivities().ToArray());
             context.SaveChanges();
@@ -214,6 +214,52 @@ namespace ZenithWebsite.Migrations.Zenith
                 DateTo = new DateTime(2016, 10, 2, 18, 0, 0),
                 UserName = "a",
                 Activity = db.Activities.First(a => a.ActivityId == 13),
+                CreationDate = new DateTime(2016, 1, 1, 1, 1, 1),
+                IsActive = true
+            });
+
+            events.Add(new Event()
+            {
+                DateFrom = new DateTime(2016, 10, 24, 13, 0, 0),
+                DateTo = new DateTime(2016, 10, 24, 18, 0, 0),
+                UserName = "a",
+                Activity = db.Activities.First(a => a.ActivityId == 8),
+                CreationDate = new DateTime(2016, 1, 1, 1, 1, 1),
+                IsActive = true
+            });
+            events.Add(new Event()
+            {
+                DateFrom = new DateTime(2016, 10, 26, 14, 0, 0),
+                DateTo = new DateTime(2016, 10, 26, 15, 0, 0),
+                UserName = "a",
+                Activity = db.Activities.First(a => a.ActivityId == 9),
+                CreationDate = new DateTime(2016, 1, 1, 1, 1, 1),
+                IsActive = true
+            });
+            events.Add(new Event()
+            {
+                DateFrom = new DateTime(2016, 10, 27, 16, 0, 0),
+                DateTo = new DateTime(2016, 10, 27, 21, 0, 0),
+                UserName = "a",
+                Activity = db.Activities.First(a => a.ActivityId == 10),
+                CreationDate = new DateTime(2016, 1, 1, 1, 1, 1),
+                IsActive = true
+            });
+            events.Add(new Event()
+            {
+                DateFrom = new DateTime(2016, 10, 28, 21, 0, 0),
+                DateTo = new DateTime(2016, 10, 28, 22, 0, 0),
+                UserName = "a",
+                Activity = db.Activities.First(a => a.ActivityId == 11),
+                CreationDate = new DateTime(2016, 1, 1, 1, 1, 1),
+                IsActive = true
+            });
+            events.Add(new Event()
+            {
+                DateFrom = new DateTime(2016, 10, 30, 22, 0, 0),
+                DateTo = new DateTime(2016, 10, 31, 02, 0, 0),
+                UserName = "a",
+                Activity = db.Activities.First(a => a.ActivityId == 12),
                 CreationDate = new DateTime(2016, 1, 1, 1, 1, 1),
                 IsActive = true
             });

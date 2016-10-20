@@ -17,16 +17,16 @@
         <div class="form-group">
             @Html.LabelFor(model => model.DateFrom, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10" style="position:relative">
-                @Html.TextBoxFor(model => model.DateFrom, new { @class = "form-control datetimepicker", placeholder = "Enter from date" })
-                @Html.ValidationMessageFor(model => model.DateFrom)
+                @Html.TextBoxFor(model => model.DateFrom, new { @class = "form-control fromdatepicker", placeholder = "Enter from date" })
+                @Html.ValidationMessageFor(model => model.DateFrom, "", new { @class = "text-danger" })
             </div>
          </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.DateTo, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10" style="position:relative">
-                @Html.TextBoxFor(model => model.DateTo, new { @class = "form-control datetimepicker", placeholder = "Enter to date" })
-                @Html.ValidationMessageFor(model => model.DateTo)
+                @Html.TextBoxFor(model => model.DateTo, new { @class = "form-control todatepicker", placeholder = "Enter to date" })
+                @Html.ValidationMessageFor(model => model.DateTo, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -67,8 +67,19 @@
     <script type="text/javascript">
 
         $(function () {
-            $('.datetimepicker').datetimepicker({
+            $('.fromdatepicker').datetimepicker({
                 minDate: moment()
+            });
+            $('.todatepicker').datetimepicker({
+                minDate: moment(),
+                useCurrent: false
+            });
+            $(".fromdatepicker").on("dp.change", function (e) {
+                $('.todatepicker').data("DateTimePicker").minDate(e.date);
+            });
+            $(".todatepicker").on("dp.change", function (e) {
+                $('.fromdatepicker').data("DateTimePicker").maxDate(e.date);
+
             });
         });
     </script>

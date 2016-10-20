@@ -13,6 +13,7 @@ namespace ZenithDataLib.Models
         public int ActivityId { get; set; }
 
         [MaxLength(75)]
+        [Required(ErrorMessage = "Description of the event is required.")]
         public String Description { get; set; }
 
         [Display(Name = "Creation Date")]
